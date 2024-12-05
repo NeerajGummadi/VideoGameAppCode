@@ -13,7 +13,10 @@ def connect_db():
 # Load models
 
 with open('model_playtime.pkl', 'rb') as file:
-    model_playtime = pickle.load(file)  
+    model_playtime = pickle.load(file)
+
+with open('model_ratings.pkl', 'rb') as file:
+    model_ratings = pickle.load(file)
 
 with open('model_pricing.pkl', 'rb') as file:
     model_pricing = pickle.load(file)
