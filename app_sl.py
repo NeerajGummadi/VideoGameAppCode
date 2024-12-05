@@ -134,7 +134,7 @@ elif page == "Manage Steam Games":
             try:
                 conn = connect_db()
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM SteamData WHERE rowid = ?", (selected_row["rowid"],))
+                cursor.execute("DELETE FROM SteamData WHERE name = ?", (selected_game_name,))  # Updated to use 'name' for targeting
                 conn.commit()
                 conn.close()
                 st.success("Game deleted successfully!")
