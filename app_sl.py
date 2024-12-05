@@ -56,8 +56,8 @@ page = st.sidebar.radio("Go to", ["Home", "Manage Steam Games", "View Games", "P
 
 # Home
 if page == "Home":
-    st.title("Game Management Dashboard")
-    st.write("Welcome to the Game Management Dashboard! Use the navigation menu to explore features.")
+    st.title("Video Game Reception Prediction")
+    st.write("Welcome to the Video Game Reception Prediction Dashboard! Use the navigation menu to explore features.")
 
 # Manage Steam Games
 elif page == "Manage Steam Games":
