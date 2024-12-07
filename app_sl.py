@@ -119,14 +119,17 @@ elif page == "Manage Steam Games":
                     cursor = conn.cursor()
 
                     # Update the record in the database
-                    cursor.execute("""
+                    query = """
                         UPDATE SteamData
                         SET appid = ?, name = ?, release_date = ?, english = ?, developer = ?, publisher = ?,
                             platforms = ?, required_age = ?, categories = ?, genres = ?, steamspy_tags = ?,
                             achievements = ?, positive_ratings = ?, negative_ratings = ?, average_playtime = ?,
                             median_playtime = ?, owners = ?, price = ?
                         WHERE appid = ?
-                    """, (*updated_data.values(), selected_row["appid"]))
+                    """
+                    st.write("Executing SQL:", query)
+                    st.write("Values:", (*updated_data.values(), updated_data["appid"]))
+                    cursor.execute(query, (*updated_data.values(), updated_data["appid"]))
 
                     conn.commit()
                     conn.close()
