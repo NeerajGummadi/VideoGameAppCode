@@ -84,32 +84,36 @@ elif page == "Manage Steam Games":
         selected_row = df[df["name"] == selected_game_name].iloc[0]
 
         # Display Edit form with populated values
+        # Display Edit form with populated values
         st.subheader("Edit Game")
         with st.form("edit_game_form"):
             updated_data = {
-                "appid": st.text_input("App ID", value=selected_row["appid"]),
-                "name": st.text_input("Name", value=selected_row["name"]),
-                "release_date": st.text_input("Release Date", value=selected_row["release_date"]),
-                "english": st.text_input("English", value=selected_row["english"]),
-                "developer": st.text_input("Developer", value=selected_row["developer"]),
-                "publisher": st.text_input("Publisher", value=selected_row["publisher"]),
-                "platforms": st.text_input("Platforms", value=selected_row["platforms"]),
-                "required_age": st.text_input("Required Age", value=selected_row["required_age"]),
-                "categories": st.text_input("Categories", value=selected_row["categories"]),
-                "genres": st.text_input("Genres", value=selected_row["genres"]),
-                "steamspy_tags": st.text_input("SteamSpy Tags", value=selected_row["steamspy_tags"]),
-                "achievements": st.text_input("Achievements", value=selected_row["achievements"]),
-                "positive_ratings": st.text_input("Positive Ratings", value=selected_row["positive_ratings"]),
-                "negative_ratings": st.text_input("Negative Ratings", value=selected_row["negative_ratings"]),
-                "average_playtime": st.text_input("Average Playtime", value=selected_row["average_playtime"]),
-                "median_playtime": st.text_input("Median Playtime", value=selected_row["median_playtime"]),
-                "owners": st.text_input("Owners", value=selected_row["owners"]),
-                "price": st.text_input("Price", value=selected_row["price"]),
+                "appid": st.text_input("App ID", value=str(selected_row["appid"])),
+                "name": st.text_input("Name", value=str(selected_row["name"])),
+                "release_date": st.text_input("Release Date", value=str(selected_row["release_date"])),
+                "english": st.text_input("English", value=str(selected_row["english"])),
+                "developer": st.text_input("Developer", value=str(selected_row["developer"])),
+                "publisher": st.text_input("Publisher", value=str(selected_row["publisher"])),
+                "platforms": st.text_input("Platforms", value=str(selected_row["platforms"])),
+                "required_age": st.text_input("Required Age", value=str(selected_row["required_age"])),
+                "categories": st.text_input("Categories", value=str(selected_row["categories"])),
+                "genres": st.text_input("Genres", value=str(selected_row["genres"])),
+                "steamspy_tags": st.text_input("SteamSpy Tags", value=str(selected_row["steamspy_tags"])),
+                "achievements": st.text_input("Achievements", value=str(selected_row["achievements"])),
+                "positive_ratings": st.text_input("Positive Ratings", value=str(selected_row["positive_ratings"])),
+                "negative_ratings": st.text_input("Negative Ratings", value=str(selected_row["negative_ratings"])),
+                "average_playtime": st.text_input("Average Playtime", value=str(selected_row["average_playtime"])),
+                "median_playtime": st.text_input("Median Playtime", value=str(selected_row["median_playtime"])),
+                "owners": st.text_input("Owners", value=str(selected_row["owners"])),
+                "price": st.text_input("Price", value=str(selected_row["price"])),
             }
             if st.form_submit_button("Update Game"):
                 try:
+                    # Connect to the database
                     conn = connect_db()
                     cursor = conn.cursor()
+
+                    # Update the record in the database
                     cursor.execute("""
                         UPDATE SteamData
                         SET appid = ?, name = ?, release_date = ?, english = ?, developer = ?, publisher = ?,
@@ -118,8 +122,10 @@ elif page == "Manage Steam Games":
                             median_playtime = ?, owners = ?, price = ?
                         WHERE appid = ?
                     """, (*updated_data.values(), selected_row["appid"]))
+
                     conn.commit()
                     conn.close()
+
                     st.success("Game updated successfully!")
                     # Refresh the table
                     df = fetch_games()
@@ -127,6 +133,7 @@ elif page == "Manage Steam Games":
                 except Exception as e:
                     st.error(f"Error updating game: {e}")
 
+        
         # Delete functionality
         st.subheader("Delete Game")
         
