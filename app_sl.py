@@ -109,6 +109,11 @@ elif page == "Manage Steam Games":
             }
             if st.form_submit_button("Update Game"):
                 try:
+
+                    # Display the app ID being updated for debugging
+                    st.write(f"Updating Game with App ID: {updated_data['appid']}")
+                    print(f"Updating Game with App ID: {updated_data['appid']}")  # Print to terminal for debugging
+
                     # Connect to the database
                     conn = connect_db()
                     cursor = conn.cursor()
