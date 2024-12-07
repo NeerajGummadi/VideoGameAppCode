@@ -116,8 +116,8 @@ elif page == "Manage Steam Games":
                             platforms = ?, required_age = ?, categories = ?, genres = ?, steamspy_tags = ?,
                             achievements = ?, positive_ratings = ?, negative_ratings = ?, average_playtime = ?,
                             median_playtime = ?, owners = ?, price = ?
-                        WHERE rowid = ?
-                    """, (*updated_data.values(), selected_row["rowid"]))
+                        WHERE appid = ?
+                    """, (*updated_data.values(), selected_row["appid"]))
                     conn.commit()
                     conn.close()
                     st.success("Game updated successfully!")
