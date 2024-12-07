@@ -127,8 +127,6 @@ elif page == "Manage Steam Games":
                             median_playtime = ?, owners = ?, price = ?
                         WHERE appid = ?
                     """
-                    st.write("Executing SQL:", query)
-                    st.write("Values:", (*updated_data.values(), updated_data["appid"]))
                     cursor.execute(query, (*updated_data.values(), updated_data["appid"]))
 
                     conn.commit()
